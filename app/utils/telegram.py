@@ -11,8 +11,8 @@ TELEGRAM_API_BASE = "https://api.telegram.org"
 
 
 def send_telegram_message(text: str) -> None:
-    token = settings.telegram_bot_token
-    chat_id = settings.telegram_chat_id
+    token = settings.TELEGRAM_BOT_TOKEN
+    chat_id = settings.TELEGRAM_CHAT_ID
     if not token or not chat_id:
         logger.warning("Telegram not configured: set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to enable alerts")
         return
@@ -31,8 +31,6 @@ def send_telegram_message(text: str) -> None:
         logger.info("Telegram alert sent to chat_id=%s", chat_id)
     except Exception:
         logger.exception("Failed to send Telegram alert to chat_id=%s", chat_id)
-        _ = resp.read()
-        print(resp)
 
 
 def build_order_paid_alert(order: Any, session: dict[str, Any] | None = None) -> str:
